@@ -8,7 +8,7 @@
 <body>
 <body>
 <div id="app">
-    <v-app>
+    <v-app id="inspire">
         <v-container fluid>
             <v-form
                     id="trans"
@@ -21,17 +21,24 @@
                         required
                 ></v-text-field>
 
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                                :disabled="!valid"
+                                color="primary"
+                                @click="goTrans()"
+                                class="mt-4"
+                                v-on="on"
+                        >
+                            Translate
+                        </v-btn>
+                    </template>
+                    <span>Translate whole webpage with google translator</span>
+                </v-tooltip>
                 <v-btn
-                        :disabled="!valid"
-                        color="primary"
-                        @click="goTrans()"
-                >
-                    Translate
-                </v-btn>
-                <v-btn
-                        :disabled="!valid"
                         color="primary"
                         outlined
+                        class="mt-4 ml-2"
                         @click="reset()"
                 >
                     Reset
@@ -56,13 +63,13 @@
             ],
         },
         methods: {
-            checkform: function(e) {
+            checkform: function (e) {
                 return true;
             },
-            goTrans: function() {
+            goTrans: function () {
                 window.open("https://translate.google.com/translate?u=" + this.url, "_blank");
             },
-            reset: function() {
+            reset: function () {
                 this.url = '';
                 this.$refs.trans.resetValidation();
             }
